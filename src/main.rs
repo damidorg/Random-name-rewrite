@@ -3,36 +3,48 @@ use std::io;
 use std::io::Write;
 
 fn main() {
-    eprintln!("write youre names");
+    eprintln!("write youre names (write `quit` to exit )");
 
     let mut names: Vec<String> = Vec::new();
     loop {
         print!("> ");
-        io::stdout().flush().expect("PROGRAM BROC");
+        io::stdout().flush().expect("PROGRAM BROC"); //asking for names
         let buffer = io::stdin();
         let mut input = String::new();
         buffer.read_line(&mut input).expect("invalid input");
 
         match input.trim() {
+            //cheking the input
             "done" => break,
             "" => println!("enter a name!"),
+            "quit" => return,
             _ => names.push(input.to_string()),
         }
     }
+    loop {
+        match mode_input().trim() {
+            "1" => break last_standing(names),
+            "2" => break random_name(names),
+            "quit" => return,
+            _ => {
+                println!("pick from the options!!!");
+                mode_input();
+            }
+        }
+    }
+}
+fn mode_input() -> String {
     println!("what mode?\n(1)last standing\n(2)random name ");
     print!("> ");
     io::stdout().flush().expect("PROGRAM BROC");
     let buffer = io::stdin();
     let mut input = String::new();
     buffer.read_line(&mut input).expect("bad input");
-
-    match input.trim() {
-        "1" => last_standing(names),
-        "2" => random_name(names),
-        _ => names.push(input.to_string()),
-    }
+    input
 }
+
 fn last_standing(mut names: Vec<String>) {
+    //writing names and their places
     let mut place: u32 = 1;
     loop {
         let randomnumber = rand::rng().random_range(..names.len());
@@ -44,6 +56,7 @@ fn last_standing(mut names: Vec<String>) {
         }
     }
 }
+
 fn random_name(names: Vec<String>) {
     let randomnumber = rand::rng().random_range(..names.len());
     println!("{}", names[randomnumber])
