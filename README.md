@@ -1,6 +1,5 @@
 This is a very simple program that takes names and outputs a random one or list in order 
-[[./2025-06-24_13-15.png]]
-<h1 align="center">
+<h1 align="left">
  <img src="https://github.com/damidorg/Random-name-rewrite/blob/main/picture.png">
 
 #### how to compile 
